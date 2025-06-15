@@ -1,0 +1,20 @@
+name: Notify Main Repository
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'posts/**'
+      - 'uploads/**'
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger build in main repository
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          token: ${{ secrets.GH_PAT }}
+          repository: vipinbihari/blog_cms
+          event-type: content-update
